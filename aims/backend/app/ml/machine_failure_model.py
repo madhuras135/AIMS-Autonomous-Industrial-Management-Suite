@@ -46,7 +46,16 @@ from sklearn.preprocessing import StandardScaler
 #   parents[3]  = aims/
 #   parents[4]  = project root  (idb project/)
 _THIS_FILE = Path(__file__).resolve()
-_PROJECT_ROOT = _THIS_FILE.parents[4]
+import pathlib
+_THIS_FILE = pathlib.Path(__file__).resolve()
+
+# Dynamically find the directory named 'backend' or fall back safely
+if "backend" in [p.name for p in _THIS_FILE.parents]:
+    _PROJECT_ROOT = next(p for p in _THIS_FILE.parents if p.name == "backend")
+else:
+    # Fallback for the flat Docker container layout
+    _PROJECT_ROOT = _THIS_FILE.parents[1]
+    
 ARTIFACT_DIR = _PROJECT_ROOT / "artifacts"
 MODEL_PATH = ARTIFACT_DIR / "machine_failure_model.pkl"
 SCALER_PATH = ARTIFACT_DIR / "machine_failure_scaler.pkl"

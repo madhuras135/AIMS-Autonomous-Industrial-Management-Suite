@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="AIMS — Autonomous Industrial Management Suite" />
+    <title>A-I-M-S — Autonomous Industrial Management Suite</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="auth-overlay" class="auth-overlay active">
+      <div class="auth-card">
+        <div class="auth-header">
+          <div class="brand-mark">AIMS</div>
+          <h1>Autonomous Industrial Management Suite</h1>
+          <p>Secure operations control for live industrial intelligence.</p>
+        </div>
+        <form id="login-form" class="auth-form">
+          <label>
+            Username
+            <input id="username" type="text" value="ops.manager" required />
+          </label>
+          <label>
+            Password
+            <input id="password" type="password" value="securepass" required />
+          </label>
+          <label>
+            Role
+            <select id="role-select" required>
+              <option value="operator">Operator</option>
+              <option value="maintenance">Maintenance</option>
+              <option value="manager">Manager</option>
+            </select>
+          </label>
+          <div class="auth-actions">
+            <button type="submit">Authenticate</button>
+            <button type="button" id="demo-login" class="ghost">Use Demo Session</button>
+          </div>
+          <p class="hint">Demo roles: Operator, Maintenance Engineer, Factory Manager</p>
+        </form>
+      </div>
+    </div>
+
+    <div id="app-shell" class="app-shell hidden">
+      <header class="topbar">
+        <div class="topbar-brand" aria-label="A-I-M-S autonomous industrial management suite">
+          <div class="brand-mark-shell" aria-hidden="true">
+            <svg class="brand-icon" viewBox="0 0 96 96" role="img" aria-label="AIMS industrial automation icon">
+              <defs>
+                <linearGradient id="brandGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#2dd4a7" />
+                  <stop offset="100%" stop-color="#0f4d3d" />
+                </linearGradient>
+              </defs>
+              <rect x="8" y="8" width="80" height="80" rx="22" fill="rgba(7, 18, 15, 0.95)" stroke="rgba(255,255,255,0.14)" stroke-width="2" />
+              <path d="M20 20h56M20 76h56M20 20v56M76 20v56" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" />
+              <g fill="none" stroke="url(#brandGlow)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="48" cy="48" r="18" />
+                <circle cx="48" cy="48" r="9" fill="#07120f" />
+                <path d="M48 24v8M48 64v8M24 48h8M64 48h8" />
+                <path d="M31 31l6 6M59 59l6 6M31 65l6-6M59 37l6-6" />
+                <circle cx="48" cy="48" r="4" fill="#2dd4a7" />
+                <circle cx="30" cy="48" r="3.5" fill="#2dd4a7" />
+                <circle cx="66" cy="48" r="3.5" fill="#2dd4a7" />
+                <circle cx="48" cy="30" r="3.5" fill="#2dd4a7" />
+                <circle cx="48" cy="66" r="3.5" fill="#2dd4a7" />
+              </g>
+            </svg>
+          </div>
+          <div class="brand-copy">
+            <div class="brand-name">A-I-M-S</div>
+            <div class="brand-divider" aria-hidden="true"></div>
+            <div class="brand-subtitle">Autonomous Industrial Management Suite</div>
+          </div>
+        </div>
+        <div class="topbar-actions">
+          <div id="role-pill" class="role-pill">Guest</div>
+          <button id="scheduling-matrix-btn" class="ghost role-control" type="button" data-role-visibility="maintenance,manager" style="display:none;">Scheduling Matrix</button>
+          <button id="logout-btn" class="ghost">Log Out</button>
+        </div>
+      </header>
+
+      <main class="dashboard-grid">
+        <section class="panel panel-large">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Ops View · Live SCADA</p>
+              <h3>Line Assets</h3>
+            </div>
+            <div class="pulse-dot" aria-hidden="true"></div>
+          </div>
+          <div id="machine-grid" class="machine-grid"></div>
+        </section>
+
+        <section class="panel panel-side">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Executive View</p>
+              <h3>Operational Feed</h3>
+            </div>
+          </div>
+          <div id="feed-list" class="feed-list"></div>
+        </section>
+
+        <section class="panel panel-wide query-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Decision Support</p>
+              <h3>Supervisor Orchestration</h3>
+            </div>
+            <button type="button" id="run-orchestration" class="run-btn">Run Orchestration</button>
+          </div>
+
+          <p class="chip-label">Quick Diagnostic Suggestions</p>
+          <div id="query-chips" class="query-chips" role="list">
+            <button type="button" class="query-chip" data-query="Run OEE Analysis" role="listitem">
+              Run OEE Analysis
+            </button>
+            <button type="button" class="query-chip" data-query="Predict M4 Failure Timeline" role="listitem">
+              Predict M4 Failure Timeline
+            </button>
+            <button type="button" class="query-chip" data-query="Check Material Shortages" role="listitem">
+              Check Material Shortages
+            </button>
+            <button type="button" class="query-chip" data-query="Why is Machine M4 in alarm?" role="listitem">
+              Why is Machine M4 in alarm?
+            </button>
+            <button type="button" class="query-chip" data-query="Can we finish Order A102?" role="listitem">
+              Can we finish Order A102?
+            </button>
+          </div>
+
+          <div class="chat-bar" id="chat-bar">
+            <div class="chat-bar-inner">
+              <span class="chat-bar-icon" aria-hidden="true">◈</span>
+              <input
+                id="query-input"
+                type="text"
+                placeholder="Ask A-I-M-S — e.g. inspect machine health, inventory risk, maintenance priority…"
+                autocomplete="off"
+              />
+              <button type="button" id="query-submit" class="chat-submit">Submit</button>
+            </div>
+          </div>
+
+          <div class="role-control-group" style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
+            <div id="maintenance-log-tools" class="role-control" data-role-visibility="maintenance" style="display:none;">
+              <button type="button" class="ghost">Technical Maintenance Log</button>
+              <button type="button" class="ghost">Shift Planner</button>
+            </div>
+            <div id="manager-access-tools" class="role-control" data-role-visibility="manager" style="display:none;">
+              <button type="button" class="ghost">Executive Command Center</button>
+            </div>
+          </div>
+
+          <div id="agent-activity" class="agent-activity">
+            <div class="agent-activity-header">
+              <span class="eyebrow">Multi-Agent Activity</span>
+              <span id="activity-status" class="activity-status idle">Idle</span>
+            </div>
+            <div id="insight-card" class="insight-card agent-log-stream"></div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+
+export default defineConfig({
+  plugins: [react()],
+  server: {
+    host: "127.0.0.1",
+    port: 5173,
+    proxy: {
+      // Use 127.0.0.1 to avoid Windows localhost → IPv6 hitting another :8000 listener
+      "/api": {
+        target: "http://127.0.0.1:8001",
+        changeOrigin: true,
+      },
+      "/health": {
+        target: "http://127.0.0.1:8001",
+        changeOrigin: true,
+      },
+    },
+  },
+});

@@ -45,7 +45,7 @@ from sklearn.preprocessing import StandardScaler
 #   parents[2]  = aims/backend/
 #   parents[3]  = aims/
 #   parents[4]  = project root  (idb project/)
-_THIS_FILE = Path(__file__).resolve()
+#_THIS_FILE = Path(__file__).resolve()
 import pathlib
 _THIS_FILE = pathlib.Path(__file__).resolve()
 

@@ -41,6 +41,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/")
+def home():
+    return {"message": "AIMS API Gateway is running successfully!"}
 
 @app.get("/health")
 def health() -> dict[str, str]:

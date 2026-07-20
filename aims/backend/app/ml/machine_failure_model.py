@@ -48,7 +48,6 @@ from sklearn.preprocessing import StandardScaler
 #_THIS_FILE = Path(__file__).resolve()
 import pathlib
 _THIS_FILE = pathlib.Path(__file__).resolve()
-
 # Dynamically find the directory named 'backend' or fall back safely
 if "backend" in [p.name for p in _THIS_FILE.parents]:
     _PROJECT_ROOT = next(p for p in _THIS_FILE.parents if p.name == "backend")

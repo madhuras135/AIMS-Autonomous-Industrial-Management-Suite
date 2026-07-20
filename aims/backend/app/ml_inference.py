@@ -17,7 +17,14 @@ import pandas as pd
 StatusTier = Literal["NORMAL", "WARNING", "CRITICAL"]
 
 # aims/backend/app/ml_inference.py → parents[3] = project root ("idb project")
-_PROJECT_ROOT = Path(__file__).resolve().parents[3]
+import pathlib
+_THIS_FILE = pathlib.Path(__file__).resolve()
+
+if "backend" in [p.name for p in _THIS_FILE.parents]:
+    _PROJECT_ROOT = next(p for p in _THIS_FILE.parents if p.name == "backend")
+else:
+    _PROJECT_ROOT = _THIS_FILE.parents[1]
+
 ARTIFACT_DIR = _PROJECT_ROOT / "artifacts"
 MODEL_PATH = ARTIFACT_DIR / "maintenance_model.pkl"
 SCALER_PATH = ARTIFACT_DIR / "scaler.pkl"

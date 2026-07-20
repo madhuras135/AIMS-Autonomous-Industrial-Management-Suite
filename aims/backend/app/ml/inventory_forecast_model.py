@@ -46,8 +46,15 @@ from sklearn.preprocessing import StandardScaler
 # ---------------------------------------------------------------------------
 # Paths
 # ---------------------------------------------------------------------------
-_THIS_FILE    = Path(__file__).resolve()
-_PROJECT_ROOT = _THIS_FILE.parents[4]   # idb project/
+#_THIS_FILE    = Path(__file__).resolve()
+import pathlib
+_THIS_FILE = pathlib.Path(__file__).resolve()
+
+if "backend" in [p.name for p in _THIS_FILE.parents]:
+    _PROJECT_ROOT = next(p for p in _THIS_FILE.parents if p.name == "backend")
+else:
+    _PROJECT_ROOT = _THIS_FILE.parents[1]
+
 ARTIFACT_DIR  = _PROJECT_ROOT / "artifacts"
 MODEL_PATH    = ARTIFACT_DIR / "inventory_forecast_model.pkl"
 SCALER_PATH   = ARTIFACT_DIR / "inventory_forecast_scaler.pkl"

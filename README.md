@@ -139,10 +139,13 @@ The FastAPI server exposes the following operational endpoints (local base: `htt
 
 ## 🚀 Getting Started (Local)
 
-### Prerequisites
-
-- Python 3.11+  
-- Node.js v18+
+### System Prerequisites
+* **Python 3.11+**
+* **Node.js v18+**
+* **WeasyPrint Native Libraries** (Required for PDF generation compilation):
+  * *Ubuntu/Debian:* `sudo apt-get install build-essential python3-dev python3-pip python3-setuptools python3-wheel python3-cffi libcairo2 libpango-1.0-0 libpangocairo-1.0-0 libgdk-pixbuf2.0-0 libffi-dev shared-mime-info`
+  * *macOS:* `brew install cairo pango gdk-pixbuf libffi`
+  * *Windows:* Follow the MSYS2 installer steps outlined in the WeasyPrint documentation.
 
 ### 1. Backend Setup & Model Training
 

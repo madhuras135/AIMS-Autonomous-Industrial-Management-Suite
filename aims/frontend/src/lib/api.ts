@@ -2,7 +2,8 @@
  * A-I-M-S API helpers — talk directly to the FastAPI gateway on port 8001.
  */
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8001/api/v1";
+/** const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8001/api/v1"; **/
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://aims-autonomous-industrial-management-nh7f.onrender.com/api/v1";
 
 export type MachineStatus = "NORMAL" | "WARNING" | "CRITICAL";
 export type InventoryStatus = "HEALTHY" | "LOW" | "CRITICAL";
